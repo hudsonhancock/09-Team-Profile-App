@@ -9,7 +9,6 @@ const generateTeam = (team) => {
         </ul>
         `;
   };
-}
 
   const generateEngineer = (engineer) => {
     return `
@@ -20,10 +19,42 @@ const generateTeam = (team) => {
                 
         </ul>
         `;
+  };
 
+  const generateIntern = (intern) => {
+    return `
+        <h2 class="card-title">${intern.name}</h2>
+        <ul class="list-group">
+                <li class="list-group-item">ID: ${intern.id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
+                
+        </ul>
+        `;
+  };
 
-  const htmlArr = [generateManager(team[0])];
+  // Pulls out each role and inserts them into the html Arr.
+  htmlArr.push(
+    team
+      .filter((employee) => employee.role === "manager")
+      .map((manager) => generateManager(manager))
+      .join("")
+  );
 
+  htmlArr.push(
+    team
+      .filter((employee) => employee.role === "engineer")
+      .map((engineer) => generateEngineer(engineer))
+      .join("")
+  );
+
+  htmlArr.push(
+    team
+      .filter((employee) => employee.role === "intern")
+      .map((intern) => generateIntern(intern))
+      .join("")
+  );
+
+  const htmlArr = [];
   return htmlArr.join("");
 };
 
@@ -62,4 +93,3 @@ module.exports = (team) => {
     </html>
         `;
 };
-
